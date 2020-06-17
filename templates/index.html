@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Financial Plot</title>
+​
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
+​
+    <!-- Change to the cyborg bootstrap style -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cyborg/bootstrap.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Ubuntu"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet1" href="templates/css/style.css" />
+​
+    <!-- Javascript prereqs -->
+    <script src="https://unpkg.com/simple-statistics@5.0.0/dist/simple-statistics.min.js"></script>
+    <script src="https://momentjs.com/downloads/moment.js"></script>
+    <script src="https://d3js.org/d3.v5.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+​
+    <!-- formatting for the candlesticks chart -->
+    <style>
+      /* html,
+      body, */
+      #container {
+        display: flex;
+        width: 90%;
+        /* height: 370px;
+        margin: 0;
+        padding: 0; */
+        align: center;
+      }
+    </style>
+  </head>
+​
+  <body>
+    <!-- This is the portion the user enters for stock data -->
+    <form class="form-inline">
+      <div class="form-group">
+        <label for="stockInput">Stock</label>
+        <input
+          type="text"
+          class="form-control"
+          id="stockInput"
+          placeholder="Enter a stock"
+        />
+      </div>
+      <button
+        id="submit"
+        type="submit"
+        class="btn btn-primary"
+        onclick="buildPlot()"
+      >
+        Plot Stock
+      </button>
+    </form>
+​
+    <div class="container">
+      <div class="jumbotron">
+        <h2>
+          <div class="text1">The Financial Report</div>
+​
+          <span id="report-date" style="float: right;"></span>
+        </h2>
+        <p></p>
+      </div>
+​
+      <!-- Put candlesticks plot here: -->
+      <div id="plot"></div>
+​
+      <!-- <div class="row">
+        <div class="col-md-6">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              Company Profile
+            </div>
+          </div>
+          <div class="company"></div>
+        </div>
+        <div class="col-md-6">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              Stock EPS
+            </div>
+          </div>
+          <div id="EPS"></div>
+        </div>
+      </div> -->
+​
+      <div class="row">
+        <div class="col-md-4">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              Company Profile
+            </div>
+          </div>
+          <div class="company"></div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <table id="eps-table" class="table">
+              Stock Performance
+              <thead>
+                <tr>
+                  <th>Year</th>
+                  <th>Quarter</th>
+                  <th>EPS Actual</th>
+                  <th>EPS Estimate</th>
+                  <th>EPS Diff</th>
+                  <th>Actual Revenue</th>
+                  <th>Estimated Revenue</th>
+                  <th>Revenue Diff</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+​
+      <div class="row">
+        <div class="col-md-8">
+          <table id="summary-table" class="table table-hover">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Open</th>
+                <th>High</th>
+                <th>Low</th>
+                <th>Close</th>
+                <th>Volume</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <footer class="footer">
+          <span class="bottom">Financial Plot</span>
+        </footer>
+      </div>
+    </div>
+​
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+​
+    <!-- Run JS to add candlesticks -->
+    <script src="{{ url_for('static',filename='js/plots.js') }}"></script>
+  </body>
+</html>
